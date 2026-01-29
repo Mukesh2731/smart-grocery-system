@@ -6,15 +6,22 @@
 </head>
 <body class="bg-light">
 
-<div class="container p-4">
-    <h3 class="mb-3">📊 Sales Report</h3>
+<div class="container-fluid p-4">
 
-    <div class="card shadow-sm p-4">
-        <h5>Total Sales</h5>
-        <h2 class="text-success mt-2">₹{{ total }}</h2>
+    <h3 class="mb-4">📊 Sales Report</h3>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4">
+                <h5>Total Sales</h5>
+                <h2 class="text-success mt-2">₹{{ total }}</h2>
+                <p class="text-muted">Overall revenue generated</p>
+            </div>
+        </div>
     </div>
 
-    <a href="/dashboard" class="btn btn-secondary mt-4">Back</a>
+    <a href="/dashboard" class="btn btn-secondary mt-4">⬅ Back to Dashboard</a>
+
 </div>
 
 </body>
