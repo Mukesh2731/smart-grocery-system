@@ -7,42 +7,80 @@
 <body class="bg-light">
 
 <div class="container mt-4">
-    <h3>Add Grocery Product</h3>
+    <h3 class="mb-3">Add Grocery Product</h3>
 
     <form method="post" class="row g-3">
+
         <div class="col-md-3">
             <input class="form-control" name="name" placeholder="Product Name" required>
         </div>
+
         <div class="col-md-2">
-            <input class="form-control" name="brand" placeholder="Brand">
+            <input class="form-control" name="brand" placeholder="Brand" required>
         </div>
+
         <div class="col-md-2">
-            <input class="form-control" name="category" placeholder="Category">
+            <input class="form-control" name="category" placeholder="Category" required>
         </div>
+
         <div class="col-md-2">
-            <input class="form-control" name="weight" placeholder="Weight (1kg)">
+            <input class="form-control" name="weight" placeholder="Weight (1kg / 500g)" required>
         </div>
+
         <div class="col-md-1">
-            <input class="form-control" name="price" placeholder="Price">
+            <input class="form-control" name="price" placeholder="Price" required>
         </div>
+
         <div class="col-md-1">
-            <input class="form-control" name="mrp" placeholder="MRP">
+            <input class="form-control" name="mrp" placeholder="MRP" required>
         </div>
+
         <div class="col-md-1">
-            <input class="form-control" name="qty" placeholder="Stock">
+            <input class="form-control" name="qty" placeholder="Stock" required>
         </div>
 
         <div class="col-md-12">
-            <input class="form-control" name="image" placeholder="Image URL">
+            <input class="form-control" name="image" placeholder="Image URL" required>
         </div>
 
         <div class="col-md-12">
             <button class="btn btn-primary">Add Product</button>
+            <a href="/dashboard" class="btn btn-secondary ms-2">Back</a>
+            <a href="/store" class="btn btn-success ms-2">Open Store</a>
         </div>
+
     </form>
 
     <hr>
-    <a href="/store" class="btn btn-success">View Store Page</a>
+
+    <h4>Products List</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Weight</th>
+                <th>Price</th>
+                <th>MRP</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in products %}
+            <tr>
+                <td>{{ p.name }}</td>
+                <td>{{ p.brand }}</td>
+                <td>{{ p.category }}</td>
+                <td>{{ p.weight }}</td>
+                <td>₹{{ p.price }}</td>
+                <td>₹{{ p.mrp }}</td>
+                <td>{{ p.qty }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </div>
 
 </body>
