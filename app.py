@@ -1,10 +1,16 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from database import connect_db, create_table
 
 app = Flask(__name__)
 
-# create DB & tables at startup
+# Ensure DB & tables are created on startup
 create_table()
+
+
+@app.route("/")
+def dashboard():
+    return render_template("dashboard.html")
+
 
 @app.route("/products", methods=["GET", "POST"])
 def products():
@@ -28,7 +34,10 @@ def products():
         ))
         conn.commit()
 
-    cur.execute("SELECT name, brand, category, weight, price, mrp, quantity FROM products")
+    cur.execute("""
+        SELECT name, brand, category, weight, price, mrp, quantity
+        FROM products
+    """)
     rows = cur.fetchall()
     conn.close()
 
@@ -45,6 +54,7 @@ def products():
         })
 
     return render_template("products.html", products=products)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
