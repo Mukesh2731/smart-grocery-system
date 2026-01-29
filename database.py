@@ -11,7 +11,12 @@ def create_table():
     CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
+        brand TEXT,
+        category TEXT,
+        weight TEXT,
         price REAL,
+        mrp REAL,
+        image TEXT,
         quantity INTEGER
     )
     """)
