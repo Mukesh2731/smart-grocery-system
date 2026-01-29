@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
+
 <h2>Add Product</h2>
 
 <form method="post">
@@ -20,9 +21,11 @@
 <h3>Products</h3>
 <ul>
 {% for p in products %}
-    <li>{{ p.name }} - ₹{{ p.price }} ({{ p.qty }})</li>
+    <li>{{ p.name }} – ₹{{ p.price }} ({{ p.qty }})</li>
 {% endfor %}
 </ul>
+
+<a href="/">Back to Dashboard</a>
 
 </body>
 </html>
