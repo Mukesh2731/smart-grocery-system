@@ -11,7 +11,8 @@ def create_table():
     CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
-        price REAL,
+        cost_price REAL,
+        sell_price REAL,
         quantity INTEGER
     )
     """)
@@ -19,9 +20,14 @@ def create_table():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS sales (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        product_id INTEGER,
-        quantity INTEGER,
-        total REAL
+        invoice_no INTEGER,
+        product_name TEXT,
+        qty INTEGER,
+        subtotal REAL,
+        cgst REAL,
+        sgst REAL,
+        total REAL,
+        profit REAL
     )
     """)
 
