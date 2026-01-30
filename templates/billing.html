@@ -1,40 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Billing</title>
+<title>Invoice</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+@media print {
+  .no-print { display:none; }
+}
+.invoice-box {
+  background:white;
+  padding:30px;
+  border:1px solid #ccc;
+}
+</style>
 </head>
+
 <body class="bg-light">
 
 <div class="container mt-4">
-<h3>Billing</h3>
 
-<form method="post" class="card p-4">
-<select class="form-control mb-3" name="product_id">
-{% for p in products %}
-<option value="{{ p.id }}">{{ p.name }} (₹{{ p.price }} | Stock {{ p.quantity }})</option>
-{% endfor %}
-</select>
+<form method="post" class="card p-4 mb-4 no-print">
+  <h4>Generate Invoice</h4>
 
-<input class="form-control mb-3" name="qty" placeholder="Quantity" required>
-<button class="btn btn-success">Generate Bill</button>
+  <select class="form-control mb-3" name="product_id">
+    {% for p in products %}
+      <option value="{{ p.id }}">{{ p.name }} (₹{{ p.price }})</option>
+    {% endfor %}
+  </select>
+
+  <input class="form-control mb-3" name="qty" placeholder="Quantity" required>
+  <button class="btn btn-success">Generate Invoice</button>
 </form>
 
 {% if bill %}
-<div class="card p-4 mt-3">
-<h4>Invoice</h4>
-<p>Product: {{ bill.name }}</p>
-<p>Price: ₹{{ bill.price }}</p>
-<p>Quantity: {{ bill.qty }}</p>
-<h4>Total: ₹{{ bill.total }}</h4>
+<div class="invoice-box">
+  <h3>Smart Grocery Store</h3>
+  <p>GSTIN: 29ABCDE1234F1Z5</p>
+  <hr>
+
+  <p><strong>Invoice No:</strong> {{ bill.invoice }}</p>
+  <p><strong>Date:</strong> {{ bill.date }}</p>
+
+  <table class="table table-bordered mt-3">
+    <tr>
+      <th>Product</th>
+      <th>Qty</th>
+      <th>Rate</th>
+      <th>Amount</th>
+    </tr>
+    <tr>
+      <td>{{ bill.name }}</td>
+      <td>{{ bill.qty }}</td>
+      <td>₹ {{ bill.price }}</td>
+      <td>₹ {{ bill.subtotal }}</td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <tr><td>CGST (9%)</td><td>₹ {{ bill.cgst }}</td></tr>
+    <tr><td>SGST (9%)</td><td>₹ {{ bill.sgst }}</td></tr>
+    <tr class="fw-bold"><td>Total</td><td>₹ {{ bill.total }}</td></tr>
+  </table>
+
+  <button onclick="window.print()" class="btn btn-primary no-print">
+    Print Invoice
+  </button>
 </div>
 {% endif %}
 
-{% if error %}
-<div class="alert alert-danger mt-3">{{ error }}</div>
-{% endif %}
-
-<a href="/dashboard" class="btn btn-secondary mt-3">Back</a>
 </div>
 
 </body>
